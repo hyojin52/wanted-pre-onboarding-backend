@@ -2,6 +2,7 @@ package com.example.company_hiring.controller;
 
 import com.example.company_hiring.controller.request.JobOpeningCreateRequest;
 import com.example.company_hiring.controller.request.JobOpeningUpdateRequest;
+import com.example.company_hiring.controller.response.JobOpeningDetailResponse;
 import com.example.company_hiring.controller.response.JobOpeningListResponse;
 import com.example.company_hiring.controller.response.JobOpeningResponse;
 import com.example.company_hiring.controller.response.Result;
@@ -41,5 +42,11 @@ public class JobOpeningController {
   public Result<List<JobOpeningListResponse>> getAll(@RequestParam String search) {
     List<JobOpeningListResponse> list = jobOpeningService.getAll(search);
     return Result.OK(list);
+  }
+  
+  @GetMapping("{id}")
+  public Result<JobOpeningDetailResponse> get(@PathVariable Integer id) {
+    JobOpeningDetailResponse detail = jobOpeningService.get(id);
+    return Result.OK(detail);
   }
 }
