@@ -33,4 +33,16 @@ public class JobOpeningController {
     jobOpeningService.delete(id);
     return Result.OK();
   }
+  
+  @DeleteMapping("{id}")
+  public Result<Void> delete(@PathVariable Integer id) {
+    jobOpeningService.delete(id);
+    return Result.OK();
+  }
+  
+  @GetMapping
+  public Result<List<JobOpeningListResponse>> getAll() {
+    List<JobOpeningListResponse> list = jobOpeningService.getAll();
+    return Result.OK(list);
+  }
 }
