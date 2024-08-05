@@ -99,4 +99,21 @@ class JobOpeningServiceTest {
     
     Assertions.assertDoesNotThrow(() -> jobOpeningService.getAll());
   }
+  
+  @Test
+  void 채용공고_상세_조회_성공() {
+    Integer id = 1;
+    when(jobOpeningRepository.findById(id)).thenReturn(Optional.of(mock(JobOpeningEntity.class)));
+    when(jobOpeningRepository.findAllByCompanyCompanyId(id)).thenReturn(List.of(mock(JobOpeningEntity.class)));
+    
+    Assertions.assertDoesNotThrow(() -> jobOpeningService.getAll());
+  }
+  
+  @Test
+  void 채용공고_상세_조회_실패() {
+    Integer id = 1;
+    when(jobOpeningRepository.findById(id)).thenReturn(Optional.empty());
+    
+    Assertions.assertThrows(CompanyHiringApplicationException.class, () -> jobOpeningService.get(id));
+  }
 }
