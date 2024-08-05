@@ -2,6 +2,7 @@ package com.example.company_hiring.service;
 
 import com.example.company_hiring.controller.request.JobOpeningCreateRequest;
 import com.example.company_hiring.controller.request.JobOpeningUpdateRequest;
+import com.example.company_hiring.controller.response.JobOpeningDetailResponse;
 import com.example.company_hiring.controller.response.JobOpeningListResponse;
 import com.example.company_hiring.controller.response.JobOpeningResponse;
 import com.example.company_hiring.entity.CompanyEntity;
@@ -62,5 +63,19 @@ public class JobOpeningService {
             .map(JobOpeningListResponse::fromEntity)
             .collect(Collectors.toList());
     return all;
+  }
+  
+  public JobOpeningDetailResponse get(Integer id) {
+    JobOpeningEntity jobOpeningEntity = jobOpeningRepository.findById(id).orElseThrow(() ->
+            new CompanyHiringApplicationException(ErrorCode.JOB_OPENING_NOT_FOUND));
+    
+    List<Integer> otherJobOpeningIdList = jobOpeningRepository.findAllByCompanyCompanyId(jobOpeningEntity.getCompany().getCompanyId())
+            .stream()
+            .filter(it -> !it.getJobOpeningId().equals(jobOpeningEntity.getJobOpeningId()))
+            .map(it -> it.getJobOpeningId())
+            .collect(Collectors.toList());
+    
+    return JobOpeningDetailResponse.fromEntity(jobOpeningEntity, otherJobOpeningIdList);
+    
   }
 }
