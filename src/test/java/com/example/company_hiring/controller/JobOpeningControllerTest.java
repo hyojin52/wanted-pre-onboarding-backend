@@ -69,6 +69,15 @@ public class JobOpeningControllerTest {
   }
   
   @Test
+  public void 채용공고_목록_조회_파라미터_성공() throws Exception {
+    mockMvc.perform(get("/api/v1/job-opening")
+                    .param("search", "백엔드")
+                    .contentType(MediaType.APPLICATION_JSON)
+            ).andDo(print())
+            .andExpect(status().isOk());
+  }
+  
+  @Test
   public void 채용공고_상세_조회_성공() throws Exception {
     mockMvc.perform(get("/api/v1/job-opening/1")
                     .contentType(MediaType.APPLICATION_JSON)

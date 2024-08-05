@@ -14,6 +14,7 @@ import com.example.company_hiring.repository.JobOpeningRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -57,8 +58,8 @@ public class JobOpeningService {
     jobOpeningRepository.delete(jobOpeningEntity);
   }
   
-  public List<JobOpeningListResponse> getAll() {
-    List<JobOpeningListResponse> all = jobOpeningRepository.findAll()
+  public List<JobOpeningListResponse> getAll(String search) {
+    List<JobOpeningListResponse> all = (search == null || search.isEmpty() ? jobOpeningRepository.findAll(): jobOpeningRepository.findBySearchTerm(search))
             .stream()
             .map(JobOpeningListResponse::fromEntity)
             .collect(Collectors.toList());
