@@ -13,8 +13,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -49,6 +48,14 @@ public class JobOpeningControllerTest {
     mockMvc.perform(put("/api/v1/job-opening/1")
                     .contentType(MediaType.APPLICATION_JSON)
                     .content(objectMapper.writeValueAsBytes(jobOpeningUpdateRequest))
+            ).andDo(print())
+            .andExpect(status().isOk());
+  }
+  
+  @Test
+  public void 채용공고_삭제_성공() throws Exception {
+    mockMvc.perform(delete("/api/v1/job-opening/1")
+                    .contentType(MediaType.APPLICATION_JSON)
             ).andDo(print())
             .andExpect(status().isOk());
   }
