@@ -27,4 +27,10 @@ public class JobOpeningController {
     JobOpeningResponse response = jobOpeningService.update(id, request);
     return Result.OK(response);
   }
+  
+  @DeleteMapping("{id}")
+  public Result<Void> delete(@PathVariable Integer id) {
+    jobOpeningService.delete(id);
+    return Result.OK();
+  }
 }

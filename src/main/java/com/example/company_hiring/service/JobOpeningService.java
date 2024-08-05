@@ -44,4 +44,11 @@ public class JobOpeningService {
     JobOpeningEntity savedEntity = jobOpeningRepository.save(jobOpeningEntity);
     return JobOpeningResponse.fromEntity(savedEntity);
   }
+  
+  public void delete(Integer id) {
+    JobOpeningEntity jobOpeningEntity = jobOpeningRepository.findById(id).orElseThrow(() ->
+            new CompanyHiringApplicationException(ErrorCode.JOB_OPENING_NOT_FOUND));
+    
+    jobOpeningRepository.delete(jobOpeningEntity);
+  }
 }
