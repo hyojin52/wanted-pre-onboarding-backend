@@ -90,4 +90,29 @@ class JobOpeningServiceTest {
     
     Assertions.assertThrows(CompanyHiringApplicationException.class, () -> jobOpeningService.delete(1));
   }
+  
+  @Test
+  void 채용공고_삭제_성공() {
+    Integer id = 1;
+    
+    when(jobOpeningRepository.findById(id)).thenReturn(Optional.of(mock(JobOpeningEntity.class)));
+    
+    Assertions.assertDoesNotThrow(() -> jobOpeningService.delete(1));
+  }
+  
+  @Test
+  void 채용공고_삭제_실패() {
+    Integer id = 1;
+    
+    when(jobOpeningRepository.findById(id)).thenReturn(Optional.empty());
+    
+    Assertions.assertThrows(CompanyHiringApplicationException.class, () -> jobOpeningService.delete(1));
+  }
+  
+  @Test
+  void 채용공고_목록_조회_성공() {
+    when(jobOpeningRepository.findAll()).thenReturn(List.of());
+    
+    Assertions.assertDoesNotThrow(() -> jobOpeningService.getAll());
+  }
 }

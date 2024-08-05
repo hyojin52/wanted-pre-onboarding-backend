@@ -51,4 +51,19 @@ public class JobOpeningService {
     
     jobOpeningRepository.delete(jobOpeningEntity);
   }
+  
+  public void delete(Integer id) {
+    JobOpeningEntity jobOpeningEntity = jobOpeningRepository.findById(id).orElseThrow(() ->
+            new CompanyHiringApplicationException(ErrorCode.JOB_OPENING_NOT_FOUND));
+    
+    jobOpeningRepository.delete(jobOpeningEntity);
+  }
+  
+  public List<JobOpeningListResponse> getAll() {
+    List<JobOpeningListResponse> all = jobOpeningRepository.findAll()
+            .stream()
+            .map(JobOpeningListResponse::fromEntity)
+            .collect(Collectors.toList());
+    return all;
+  }
 }
