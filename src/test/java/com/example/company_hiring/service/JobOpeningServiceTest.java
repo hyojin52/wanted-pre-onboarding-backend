@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -91,23 +92,6 @@ class JobOpeningServiceTest {
     Assertions.assertThrows(CompanyHiringApplicationException.class, () -> jobOpeningService.delete(1));
   }
   
-  @Test
-  void 채용공고_삭제_성공() {
-    Integer id = 1;
-    
-    when(jobOpeningRepository.findById(id)).thenReturn(Optional.of(mock(JobOpeningEntity.class)));
-    
-    Assertions.assertDoesNotThrow(() -> jobOpeningService.delete(1));
-  }
-  
-  @Test
-  void 채용공고_삭제_실패() {
-    Integer id = 1;
-    
-    when(jobOpeningRepository.findById(id)).thenReturn(Optional.empty());
-    
-    Assertions.assertThrows(CompanyHiringApplicationException.class, () -> jobOpeningService.delete(1));
-  }
   
   @Test
   void 채용공고_목록_조회_성공() {
