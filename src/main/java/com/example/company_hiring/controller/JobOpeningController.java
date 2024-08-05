@@ -38,8 +38,8 @@ public class JobOpeningController {
   }
   
   @GetMapping
-  public Result<List<JobOpeningListResponse>> getAll() {
-    List<JobOpeningListResponse> list = jobOpeningService.getAll();
+  public Result<List<JobOpeningListResponse>> getAll(@RequestParam String search) {
+    List<JobOpeningListResponse> list = jobOpeningService.getAll(search);
     return Result.OK(list);
   }
 }

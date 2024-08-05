@@ -95,8 +95,9 @@ class JobOpeningServiceTest {
   
   @Test
   void 채용공고_목록_조회_성공() {
+    String search = "backend";
     when(jobOpeningRepository.findAll()).thenReturn(List.of());
     
-    Assertions.assertDoesNotThrow(() -> jobOpeningService.getAll());
+    Assertions.assertDoesNotThrow(() -> jobOpeningService.getAll(search));
   }
 }
