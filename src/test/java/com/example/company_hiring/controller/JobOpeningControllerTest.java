@@ -1,6 +1,7 @@
 package com.example.company_hiring.controller;
 
 import com.example.company_hiring.controller.request.JobOpeningCreateRequest;
+import com.example.company_hiring.controller.request.JobOpeningUpdateRequest;
 import com.example.company_hiring.service.JobOpeningService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
@@ -13,6 +14,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -36,6 +38,17 @@ public class JobOpeningControllerTest {
     mockMvc.perform(post("/api/v1/job-opening")
                     .contentType(MediaType.APPLICATION_JSON)
                     .content(objectMapper.writeValueAsBytes(jobOpeningCreateRequest))
+            ).andDo(print())
+            .andExpect(status().isOk());
+  }
+  
+  @Test
+  public void 채용공고_수정_성공() throws Exception {
+    JobOpeningUpdateRequest jobOpeningUpdateRequest = new JobOpeningUpdateRequest( "", 500000, "", "");
+    
+    mockMvc.perform(put("/api/v1/job-opening/1")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(objectMapper.writeValueAsBytes(jobOpeningUpdateRequest))
             ).andDo(print())
             .andExpect(status().isOk());
   }

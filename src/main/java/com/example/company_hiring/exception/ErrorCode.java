@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 public enum ErrorCode {
   // 4xx - 1000
   COMPANY_NOT_FOUND(HttpStatus.NOT_FOUND, "Company is not found"),
+  JOB_OPENING_NOT_FOUND(HttpStatus.NOT_FOUND, "Job opening is not found"),
   // 5xx -5000
   INTERNAL_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "Internal server error"),
   ;
