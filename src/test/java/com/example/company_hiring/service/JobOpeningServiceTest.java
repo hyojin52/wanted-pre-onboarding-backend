@@ -1,6 +1,7 @@
 package com.example.company_hiring.service;
 
 import com.example.company_hiring.controller.request.JobOpeningCreateRequest;
+import com.example.company_hiring.controller.request.JobOpeningUpdateRequest;
 import com.example.company_hiring.entity.CompanyEntity;
 import com.example.company_hiring.entity.JobOpeningEntity;
 import com.example.company_hiring.exception.CompanyHiringApplicationException;
@@ -49,5 +50,26 @@ class JobOpeningServiceTest {
     when(companyRepository.findById(jobOpeningCreateRequest.getCompanyId())).thenReturn(Optional.empty());
     
     Assertions.assertThrows(CompanyHiringApplicationException.class, () -> jobOpeningService.create(jobOpeningCreateRequest));
+  }
+  
+  @Test
+  void 채용공고_수정_성공() {
+    Integer id = 1;
+    JobOpeningUpdateRequest jobOpeningUpdateRequest = new JobOpeningUpdateRequest("백엔드 주니어 개발자", 500000, "원티드랩에서 백엔드 주니어 개발자를 '적극' 채용합니다. 자격요건은..", "Python");
+    
+    when(jobOpeningRepository.findById(id)).thenReturn(Optional.of(mock(JobOpeningEntity.class)));
+    when(jobOpeningRepository.save(any(JobOpeningEntity.class))).thenReturn(new JobOpeningEntity());
+    
+    Assertions.assertDoesNotThrow(() -> jobOpeningService.update(1, jobOpeningUpdateRequest));
+  }
+  
+  @Test
+  void 채용공고_수정_실패() {
+    Integer id = 1;
+    JobOpeningUpdateRequest jobOpeningUpdateRequest = new JobOpeningUpdateRequest("", 500000, "", "");
+    
+    when(jobOpeningRepository.findById(id)).thenReturn(Optional.empty());
+    
+    Assertions.assertThrows(CompanyHiringApplicationException.class, () -> jobOpeningService.update(1, jobOpeningUpdateRequest));
   }
 }
