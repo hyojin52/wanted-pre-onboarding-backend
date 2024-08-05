@@ -2,11 +2,14 @@ package com.example.company_hiring.controller;
 
 import com.example.company_hiring.controller.request.JobOpeningCreateRequest;
 import com.example.company_hiring.controller.request.JobOpeningUpdateRequest;
+import com.example.company_hiring.controller.response.JobOpeningListResponse;
 import com.example.company_hiring.controller.response.JobOpeningResponse;
 import com.example.company_hiring.controller.response.Result;
 import com.example.company_hiring.service.JobOpeningService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/job-opening")
@@ -26,12 +29,6 @@ public class JobOpeningController {
           @RequestBody JobOpeningUpdateRequest request) {
     JobOpeningResponse response = jobOpeningService.update(id, request);
     return Result.OK(response);
-  }
-  
-  @DeleteMapping("{id}")
-  public Result<Void> delete(@PathVariable Integer id) {
-    jobOpeningService.delete(id);
-    return Result.OK();
   }
   
   @DeleteMapping("{id}")
