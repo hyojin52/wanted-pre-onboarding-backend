@@ -12,7 +12,7 @@
 |1|/api/v1/job-opening|POST|채용공고 등록|
 |2|/api/v1/job-opening/{id}|PUT|채용공고 수정|
 |3|/api/v1/job-opening/{id}|DELETE|채용공고 삭제|
-|4|/api/v1/job-opening|GET|채용공고 목록 조회|
+|4|/api/v1/job-opening?search={param}|GET|채용공고 목록 조회|
 |5|/api/v1/job-opening/{id}|GET|채용공고 상세 조회|
 
 
